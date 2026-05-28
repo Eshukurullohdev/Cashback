@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ehtiyot qism qo‘shish</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body { font-family: sans-serif; background: #f8fafc; }
+
+        .input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 16px;
+            background: #f1f5f9;
+            border: 2px solid transparent;
+            font-weight: 700;
+            outline: none;
+        }
+
+        .input:focus {
+            background: white;
+            border-color: #10b981;
+        }
+
+        select.input {
+            appearance: none;
+        }
+    </style>
+</head>
+
+<body class="p-4">
+
+<div class="max-w-md mx-auto">
+
+    <h1 class="text-2xl font-black mb-6">Ehtiyot qism qo‘shish</h1>
+
+    <form method="post" enctype="multipart/form-data" class="space-y-4">
+        {% csrf_token %}
+
+        <input type="text" name="name" placeholder="Mahsulot nomi" class="input" required>
+
+        <!-- CATEGORY FIXED -->
+        <select name="category" class="input" required>
+            <option value="">Kategoriya tanlang</option>
+            <option value="engine">Motor</option>
+            <option value="electric">Elektrika</option>
+            <option value="body">Kuzov</option>
+            <option value="suspension">Podveska</option>
+            <option value="brake">Tormoz</option>
+            <option value="oil">Moy</option>
+            <option value="other">Boshqa</option>
+        </select>
+
+        <input type="text" name="price" placeholder="Narx" class="input" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>
+
+        <input type="text" name="phone" placeholder="+998..." class="input" required>
+
+        <input type="file" name="image" class="input" required>
+
+        <textarea name="description" placeholder="Izoh" class="input"></textarea>
+
+        <button class="w-full bg-emerald-500 text-white py-4 rounded-2xl font-black">
+            Qo‘shish
+        </button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

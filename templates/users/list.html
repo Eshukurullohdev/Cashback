@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zapchastlar</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body { font-family: sans-serif; background: #f1f5f9; }
+
+        .card {
+            transition: 0.2s;
+        }
+
+        .card:active {
+            transform: scale(0.97);
+        }
+    </style>
+</head>
+
+<body class="p-4">
+
+<!-- BACK -->
+<a href="{% url 'dashboard' %}" class="inline-block mb-4">
+    <i class="fas fa-arrow-left"></i> Orqaga
+</a>
+
+<!-- HEADER -->
+<div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-black">Zapchastlar</h1>
+
+    {% if request.user.is_staff %}
+    <a href="{% url 'add_product' %}" class="bg-black text-white px-4 py-2 rounded-xl">
+        + Qo‘shish
+    </a>
+    {% endif %}
+</div>
+
+<!-- CATEGORY FILTER -->
+<div class="flex gap-2 overflow-x-auto mb-6">
+
+    <a href="{% url 'products' %}" class="px-3 py-1 bg-gray-200 rounded-xl">Hammasi</a>
+    <a href="?category=engine" class="px-3 py-1 bg-white rounded-xl">Motor</a>
+    <a href="?category=electric" class="px-3 py-1 bg-white rounded-xl">Elektrika</a>
+    <a href="?category=body" class="px-3 py-1 bg-white rounded-xl">Kuzov</a>
+    <a href="?category=brake" class="px-3 py-1 bg-white rounded-xl">Tormoz</a>
+
+</div>
+
+<!-- PRODUCTS -->
+<div class="grid grid-cols-2 gap-3">
+
+{% for p in products %}
+<div class="bg-white rounded-2xl overflow-hidden shadow card">
+
+    <img src="{{ p.image.url }}" class="h-32 w-full object-cover">
+
+    <div class="p-3">
+
+        <h2 class="font-black text-sm truncate">{{ p.name }}</h2>
+
+        <p class="text-green-600 font-bold mt-1">
+            {{ p.price }} so'm
+        </p>
+
+        <p class="text-[10px] text-gray-400 mt-1">
+            {{ p.get_category_display }}
+        </p>
+
+        <a href="tel:{{ p.phone }}" class="text-xs text-blue-500 mt-1 block">
+            📞 {{ p.phone }}
+        </a>
+
+        <p class="text-[10px] text-gray-400 mt-2">
+            {{ p.created_at|date:"d.m.Y" }}
+        </p>
+
+        {% if request.user.is_staff %}
+        <div class="flex gap-2 mt-3">
+
+            <a href="{% url 'edit_product' p.id %}" class="flex-1 bg-blue-100 text-blue-600 p-2 rounded-lg text-center">
+                ✏️
+            </a>
+
+            <button onclick="toggleSold({{ p.id }}, this)" class="flex-1 bg-yellow-100 text-yellow-600 p-2 rounded-lg">
+                ✔
+            </button>
+
+            <button onclick="deleteProduct({{ p.id }}, this)" class="flex-1 bg-red-100 text-red-600 p-2 rounded-lg">
+                🗑
+            </button>
+
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+{% empty %}
+<div class="col-span-2 text-center text-gray-400 py-10">
+    Hech narsa yo‘q
+</div>
+{% endfor %}
+
+</div>
+
+<!-- JS -->
+<script>
+const csrftoken = document.cookie.match(/csrftoken=([^;]+)/)?.[1];
+
+function deleteProduct(id, btn) {
+    fetch(`/users/products/delete/${id}/`, {
+        method: "POST",
+        headers: { "X-CSRFToken": csrftoken }
+    })
+    .then(r => r.json())
+    .then(d => {
+        if (d.success) btn.closest('.card').remove();
+    });
+}
+
+function toggleSold(id, btn) {
+    fetch(`/users/products/toggle/${id}/`, {
+        method: "POST",
+        headers: { "X-CSRFToken": csrftoken }
+    })
+    .then(r => r.json())
+    .then(d => {
+        if (d.success) location.reload();
+    });
+}
+</script>
+
+</body>
+</html>
