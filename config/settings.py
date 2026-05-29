@@ -122,14 +122,14 @@ USE_I18N = True
 
 STATIC_URL = 'static/'
 
-
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']   # sening static papkang shu bo‘lsa
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
 # Default primary key field type
