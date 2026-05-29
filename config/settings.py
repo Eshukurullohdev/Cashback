@@ -18,9 +18,7 @@ ALLOWED_HOSTS = [
     '*',
 ]
 
-CSRF_TRUSTED_ORIGINS = [
-    "https://cashback-production-f3a6.up.railway.app",
-]
+
 
 # Application definition
 
