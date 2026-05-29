@@ -18,7 +18,9 @@ ALLOWED_HOSTS = [
     '*',
 ]
 
-
+CSRF_TRUSTED_ORIGINS = [
+    "https://avtoservise-production.up.railway.app/",
+]
 
 # Application definition
 
