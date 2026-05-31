@@ -85,27 +85,25 @@ from django.core.validators import MinValueValidator
 class Product(models.Model):
 
     # 🧩 CATEGORY
+
     CATEGORY_CHOICES = [
-        ('engine', 'Motor Xadavoy'),
-        ('electric', 'Elektrika'),
-        ('body', 'Kuzov'),
-        ('suspension', 'Podveska'),
-        ('brake', 'Tormoz'),
-        ('oil', 'Moy va filtrlar'),
+        ('umumiy', 'Umumiy'),
+        ('elektrik', 'Elektrik'),
+        ('avto_bezak', 'Avto bezak'),
+        ('mator', 'Mator'),
+        ('xadavoy', 'Xadavoy'),
         ('kuzuf', 'Kuzuf'),
-        ('accessory', 'Avto bezak'),
-        ('aralash', 'Aralash'),
-        ('other', 'Boshqa'),
+        ('moy', 'Moy'),
     ]
 
     image = models.ImageField(upload_to='products/', null=True, blank=True)
     name = models.CharField(max_length=255)
 
     category = models.CharField(
-        max_length=20,
-        choices=CATEGORY_CHOICES,
-        default='other'
-    )
+    max_length=20,
+    choices=CATEGORY_CHOICES,
+    default='umumiy'
+)
 
     description = models.TextField(blank=True)
 

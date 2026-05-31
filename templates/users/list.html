@@ -3,123 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zapchastlar</title>
+    <title>Zapchastlar do'koni</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <style>
-        body { font-family: sans-serif; background: #f1f5f9; }
-
-        .card {
-            transition: 0.2s;
-        }
-
-        .card:active {
-            transform: scale(0.97);
-        }
+        body { font-family: sans-serif; background: #f8fafc; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 
-<body class="p-4">
+<body class="p-4 pb-24 max-w-md mx-auto antialiased">
 
-<!-- BACK -->
-<a href="{% url 'dashboard' %}" class="inline-block mb-4">
-    <i class="fas fa-arrow-left"></i> Orqaga
-</a>
+<!-- ORQAGA QAYTISH -->
+<div class="mb-5">
+    <a href="{% url 'dashboard' %}" class="inline-flex items-center gap-2 text-xs font-black text-slate-400 hover:text-slate-800 transition-colors group">
+        <i class="fas fa-arrow-left text-[10px] group-hover:-translate-x-0.5 transition-transform"></i>
+        <span class="uppercase tracking-wider">Dashboard</span>
+    </a>
+</div>
 
-<!-- HEADER -->
+<!-- HEADER QISMI -->
 <div class="flex justify-between items-center mb-6">
-    <h1 class="text-2xl font-black">Zapchastlar</h1>
+    <div class="flex flex-col">
+        <h1 class="text-2xl font-black text-slate-900 tracking-tight">Zapchastlar</h1>
+        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">Ehtiyot qismlari</p>
+    </div>
 
     {% if request.user.is_staff %}
-    <a href="{% url 'add_product' %}" class="bg-black text-white px-4 py-2 rounded-xl">
-        + Qo‘shish
+    <a href="{% url 'add_product' %}" class="bg-slate-900 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm hover:bg-slate-800 active:scale-95 transition-all flex items-center gap-1.5">
+        <i class="fas fa-plus text-[10px]"></i>
+        <span>Qo‘shish</span>
     </a>
     {% endif %}
 </div>
 
-<!-- CATEGORY FILTER -->
-<div class="flex gap-2 overflow-x-auto mb-6">
+<!-- KATEGORIYALAR (Aktiv holati bilan) -->
+<div class="flex gap-2 overflow-x-auto no-scrollbar mb-6 -mx-4 px-4">
+    
+    {% with current_cat=request.GET.category %}
+    <a href="{% url 'products' %}"
+       class="px-4 py-2 text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-sm shrink-0 border {% if not current_cat %} bg-slate-900 text-white border-slate-900 {% else %} bg-white text-slate-500 border-slate-100 {% endif %}">
+        Hammasi
+    </a>
 
-    <a href="{% url 'products' %}" class="px-3 py-1 bg-gray-200 rounded-xl">Hammasi</a>
-    <a href="?category=engine" class="px-3 py-1 bg-white rounded-xl">Motor</a>
-    <a href="?category=electric" class="px-3 py-1 bg-white rounded-xl">Elektrika</a>
-    <a href="?category=body" class="px-3 py-1 bg-white rounded-xl">Kuzov</a>
-    <a href="?category=brake" class="px-3 py-1 bg-white rounded-xl">Tormoz</a>
+    <a href="?category=umumiy"
+       class="px-4 py-2 text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-sm shrink-0 border {% if current_cat == 'umumiy' %} bg-slate-900 text-white border-slate-900 {% else %} bg-white text-slate-500 border-slate-100 {% endif %}">
+        Umumiy
+    </a>
+
+    <a href="?category=elektrik"
+       class="px-4 py-2 text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-sm shrink-0 border {% if current_cat == 'elektrik' %} bg-slate-900 text-white border-slate-900 {% else %} bg-white text-slate-500 border-slate-100 {% endif %}">
+        Elektrik
+    </a>
+
+    <a href="?category=avto_bezak"
+       class="px-4 py-2 text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-sm shrink-0 border {% if current_cat == 'avto_bezak' %} bg-slate-900 text-white border-slate-900 {% else %} bg-white text-slate-500 border-slate-100 {% endif %}">
+        Bezak
+    </a>
+
+    <a href="?category=mator"
+       class="px-4 py-2 text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-sm shrink-0 border {% if current_cat == 'mator' %} bg-slate-900 text-white border-slate-900 {% else %} bg-white text-slate-500 border-slate-100 {% endif %}">
+        Mator
+    </a>
+
+    <a href="?category=xadavoy"
+       class="px-4 py-2 text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-sm shrink-0 border {% if current_cat == 'xadavoy' %} bg-slate-900 text-white border-slate-900 {% else %} bg-white text-slate-500 border-slate-100 {% endif %}">
+        Xadavoy
+    </a>
+
+    <a href="?category=kuzuf"
+       class="px-4 py-2 text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-sm shrink-0 border {% if current_cat == 'kuzuf' %} bg-slate-900 text-white border-slate-900 {% else %} bg-white text-slate-500 border-slate-100 {% endif %}">
+        Kuzov
+    </a>
+
+    <a href="?category=moy"
+       class="px-4 py-2 text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-sm shrink-0 border {% if current_cat == 'moy' %} bg-slate-900 text-white border-slate-900 {% else %} bg-white text-slate-500 border-slate-100 {% endif %}">
+        Moylar
+    </a>
+    {% endwith %}
 
 </div>
 
-<!-- PRODUCTS -->
+<!-- MAHSULOTLAR TO'PLAMI -->
 <div class="grid grid-cols-2 gap-3">
 
 {% for p in products %}
-<div class="bg-white rounded-2xl overflow-hidden shadow card">
-
-    <img src="{{ p.image.url }}" class="h-32 w-full object-cover">
-
-    <div class="p-3">
-
-        <h2 class="font-black text-sm truncate">{{ p.name }}</h2>
-
-        <p class="text-green-600 font-bold mt-1">
-            {{ p.price }} so'm
-        </p>
-
-        <p class="text-[10px] text-gray-400 mt-1">
+<div class="bg-white rounded-[24px] overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.02)] border border-slate-100 active:scale-[0.98] transition-all duration-200 relative flex flex-col justify-between group {% if p.is_sold %} opacity-60 {% endif %}">
+    
+    <!-- Mahsulot rasmi va nishonlar -->
+    <div class="relative">
+        <img src="{{ p.image.url }}" class="h-32 w-full object-cover group-hover:scale-105 transition-transform duration-500">
+        <p></p>
+        <!-- Kategoriya badge -->
+        <span class="absolute top-2 left-2 bg-slate-900/80 backdrop-blur-md text-white text-[8px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md">
             {{ p.get_category_display }}
-        </p>
+        </span>
 
-        <a href="tel:{{ p.phone }}" class="text-xs text-blue-500 mt-1 block">
-            📞 {{ p.phone }}
-        </a>
+        <!-- Sotilgan holati uchun vizual -->
+        {% if p.is_sold %}
+        <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-[2px] flex items-center justify-center">
+            <span class="bg-red-500 text-white text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg shadow-md">Sotildi</span>
+        </div>
+        {% endif %}
+    </div>
 
-        <p class="text-[10px] text-gray-400 mt-2">
-            {{ p.created_at|date:"d.m.Y" }}
-        </p>
+    <!-- Ma'lumotlar qismi -->
+    <div class="p-3 flex-1 flex flex-col justify-between">
+        <div>
+            <h2 class="font-black text-slate-800 text-sm tracking-tight truncate">{{ p.name }}</h2>
+            
+            <p class="text-emerald-600 font-black text-sm font-mono mt-1">
+                {{ p.price }} <span class="text-[9px] font-bold opacity-80">SO'M</span>
+            </p>
+                <p class="text-[11px] text-gray-500 mt-2 overflow-hidden">
+    {{ p.description|truncatechars:60 }}
+</p>
+            <div class="flex justify-between items-center mt-2 pt-2 border-t border-slate-50">
+                <span class="text-[9px] font-bold text-slate-400 font-mono">{{ p.created_at|date:"d.m.Y" }}</span>
+            </div>
+        </div>
 
+        <!-- Aloqa tugmasi -->
+        <div class="mt-3">
+            <a href="tel:{{ p.phone }}" class="flex items-center justify-center gap-1.5 w-full bg-emerald-500 text-white text-[11px] font-bold py-2 rounded-xl shadow-sm shadow-emerald-100 hover:bg-emerald-600 active:scale-[0.97] transition-all font-mono">
+                <i class="fas fa-phone text-[9px]"></i>
+                <span>{{ p.phone }}</span>
+            </a>
+        </div>
+
+        <!-- ADMIN BOSHQARUV TUGMALARI -->
         {% if request.user.is_staff %}
-        <div class="flex gap-2 mt-3">
-
-            <a href="{% url 'edit_product' p.id %}" class="flex-1 bg-blue-100 text-blue-600 p-2 rounded-lg text-center">
-                ✏️
+        <div class="grid grid-cols-3 gap-1.5 mt-2 pt-2 border-t border-slate-100">
+            
+            <a href="{% url 'edit_product' p.id %}" class="bg-blue-50 hover:bg-blue-100 text-blue-600 p-2 rounded-xl text-center text-xs transition-colors" title="Tahrirlash">
+                <i class="fas fa-pen"></i>
             </a>
 
-            <button onclick="toggleSold({{ p.id }}, this)" class="flex-1 bg-yellow-100 text-yellow-600 p-2 rounded-lg">
-                ✔
+            <button onclick="toggleSold({{ p.id }}, this)" class="bg-amber-50 hover:bg-amber-100 text-amber-600 p-2 rounded-xl text-xs transition-colors" title="Sotildi/Sotilmadi">
+                <i class="fas {% if p.is_sold %} fa-rotate-left {% else %} fa-check {% endif %}"></i>
             </button>
 
-            <button onclick="deleteProduct({{ p.id }}, this)" class="flex-1 bg-red-100 text-red-600 p-2 rounded-lg">
-                🗑
+            <button onclick="deleteProduct({{ p.id }}, this)" class="bg-red-50 hover:bg-red-100 text-red-600 p-2 rounded-xl text-xs transition-colors" title="O'chirish">
+                <i class="fas fa-trash-can"></i>
             </button>
 
         </div>
         {% endif %}
 
     </div>
-
 </div>
 {% empty %}
-<div class="col-span-2 text-center text-gray-400 py-10">
-    Hech narsa yo‘q
+<div class="col-span-2 text-center py-16 border-2 border-dashed border-slate-200 rounded-[24px]">
+    <i class="fas fa-box-open text-slate-300 text-3xl mb-2"></i>
+    <p class="text-slate-400 font-bold uppercase tracking-widest text-[10px]">Hech qanday zapchast yo‘q</p>
 </div>
 {% endfor %}
 
 </div>
 
-<!-- JS -->
+<!-- DINAMIK ACTION SCRIPTS -->
 <script>
 const csrftoken = document.cookie.match(/csrftoken=([^;]+)/)?.[1];
 
 function deleteProduct(id, btn) {
-    fetch(`/users/products/delete/${id}/`, {
-        method: "POST",
-        headers: { "X-CSRFToken": csrftoken }
-    })
-    .then(r => r.json())
-    .then(d => {
-        if (d.success) btn.closest('.card').remove();
-    });
+    if (confirm("Ushbu mahsulotni o'chirishni xohlaysizmi?")) {
+        fetch(`/users/products/delete/${id}/`, {
+            method: "POST",
+            headers: { "X-CSRFToken": csrftoken }
+        })
+        .then(r => r.json())
+        .then(d => {
+            if (d.success) btn.closest('.group').remove();
+        });
+    }
 }
 
 function toggleSold(id, btn) {

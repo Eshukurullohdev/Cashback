@@ -185,11 +185,11 @@ def add_product(request):
 
         Product.objects.create(
             name=request.POST.get('name'),
-            price=safe_decimal(request.POST.get('price')),
+            category=request.POST.get('category'),
+            price=request.POST.get('price'),
             phone=request.POST.get('phone'),
             image=request.FILES.get('image'),
-            category=request.POST.get('category'),  # 🔥 MUHIM
-            description=request.POST.get('description')
+            description=request.POST.get('description'),
         )
 
         return redirect('products')

@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600;700;800&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
         
         .upload-area {
@@ -26,71 +26,110 @@
     </style>
 </head>
 <body class="pb-10">
-<a href="{% url 'dashboard' %}" 
-           class="block w-full bg-slate-50 text-slate-500 text-center py-3.5 rounded-[22px] font-bold text-xs uppercase tracking-wider border border-slate-100 hover:bg-slate-100 hover:text-slate-700 active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-2">
-            <i class="fas fa-house text-[11px] opacity-70"></i>
-            <span>Dashboardga qaytish</span>
-        </a>
+
     <div class="fixed top-0 left-0 right-0 glass-header p-4 flex items-center justify-between z-50">
         <a href="{% url 'dashboard' %}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 text-gray-600 active:scale-90 transition">
-            <i class="fas fa-chevron-left"></i>
+            <i class="fas fa-chevron-left text-sm"></i>
         </a>
-        <h1 class="font-extrabold text-gray-800 tracking-tight text-center flex-1">To'lovni tasdiqlash</h1>
+        <h1 class="font-extrabold text-gray-800 tracking-tight text-center flex-1 text-base">To'lovni tasdiqlash</h1>
         <div class="w-10"></div>
     </div>
 
     <main class="pt-24 px-5 max-w-md mx-auto">
         
-        <div class="bg-indigo-600 rounded-[32px] p-6 mb-8 text-white shadow-xl shadow-indigo-100 flex items-center justify-between">
-<div>
-    <p class="text-indigo-200 text-[10px] font-bold uppercase tracking-widest mb-1">
-        Ehson summasi
-    </p>
-    <p class="text-2xl font-black">
-        💗 <span class="text-sm font-normal">so'm</span>
-    </p>
-    <p class="text-indigo-100 text-xs mt-1">
-        Sizning ehsoningiz kimningdir hayotiga nur olib kiradi 🤍
-    </p>
-</div>
-            <div class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-md">
+        <div class="bg-indigo-600 rounded-[32px] p-6 mb-5 text-white shadow-xl shadow-indigo-100 flex items-center justify-between">
+            <div>
+                <p class="text-indigo-200 text-[10px] font-black uppercase tracking-widest mb-1">
+                    Ehson summasi
+                </p>
+                <p class="text-2xl font-black italic">
+                    💗 <span class="text-sm font-normal">Ixtiyoriy summani o'tkazing</span>
+                </p>
+                <p class="text-indigo-100/90 text-[11px] mt-2 font-medium">
+                    Sizning ehsoningiz kimningdir hayotiga nur olib kiradi 🤍
+                </p>
+            </div>
+            <div class="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-md shrink-0">
                 <i class="fas fa-receipt text-xl"></i>
             </div>
         </div>
 
-        <div class="bg-white rounded-[40px] shadow-2xl shadow-gray-200/50 p-7 border border-gray-50">
-            <h2 class="text-lg font-bold text-gray-800 mb-2">Chekni yuklang</h2>
-            <p class="text-xs text-gray-400 mb-6 font-medium">Exson To'lov screenshotini tanlang yoki shu yerga tashlang</p>
+        <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 rounded-[28px] p-6 mb-6 text-white shadow-lg relative overflow-hidden group">
+            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/5 rounded-full blur-2xl"></div>
+            <div class="absolute -left-10 -top-10 w-32 h-32 bg-indigo-500/10 rounded-full blur-xl"></div>
+            
+            <div class="flex justify-between items-start mb-6 relative z-10">
+                <div class="flex flex-col">
+                    <span class="text-[9px] font-black tracking-[2px] uppercase opacity-60">Qabul qiluvchi karta</span>
+                    <span class="text-xs font-black tracking-widest text-indigo-400 mt-0.5">HUMO</span>
+                </div>
+                <i class="fas fa-microchip text-2xl text-amber-400/80"></i>
+            </div>
+
+            <div class="mb-5 relative z-10">
+                <span class="text-[10px] font-bold text-slate-400 block mb-1 uppercase tracking-wider">Karta raqami</span>
+                <div class="flex items-center justify-between bg-white/5 px-4 py-3 rounded-xl border border-white/10 backdrop-blur-sm">
+                    <span id="card-number" class="text-base font-black tracking-widest font-mono text-slate-100">
+                        9860 1601 0240 4060
+                    </span>
+                    <button onclick="copyCardNumber()" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 active:scale-90 flex items-center justify-center transition text-indigo-300 hover:text-white" title="Nusxa olish">
+                        <i id="copy-icon" class="far fa-copy text-xs"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="relative z-10 flex justify-between items-end">
+                <div class="flex flex-col">
+                    <span class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Karta egasi</span>
+                    <span class="text-sm font-extrabold tracking-wide text-slate-200 mt-0.5 uppercase">
+                        Sharobiddinov Sherali
+                    </span>
+                </div>
+                <i class="fas fa-shield-halved text-slate-500 text-sm opacity-60"></i>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-[40px] shadow-[0_15px_50px_rgba(0,0,0,0.03)] border border-slate-100 p-6">
+            <h2 class="text-base font-black text-slate-800 mb-1">Chekni yuklang</h2>
+            <p class="text-xs text-slate-400 mb-5 font-medium">To'lov screenshotini tanlang yoki shu yerga tashlang</p>
 
             <form method="post" enctype="multipart/form-data" id="payment-form">
                 {% csrf_token %}
 
-                <div id="drop-zone" class="upload-area rounded-[24px] p-8 text-center cursor-pointer mb-6 relative overflow-hidden">
+                <div id="drop-zone" class="upload-area rounded-[24px] p-6 text-center cursor-pointer mb-5 relative overflow-hidden bg-slate-50/50">
                     <input type="file" name="screenshot" id="file-input" required accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer z-10">
                     
                     <div id="upload-placeholder">
-                        <div class="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-4 text-indigo-500">
-                            <i class="fas fa-cloud-upload-alt text-2xl"></i>
+                        <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mx-auto mb-3 text-indigo-500 shadow-sm border border-slate-100">
+                            <i class="fas fa-cloud-upload-alt text-xl"></i>
                         </div>
-                        <p class="text-sm font-bold text-gray-600">Rasm tanlash</p>
-                        <p class="text-[10px] text-gray-400 mt-1 uppercase font-black tracking-tighter">PNG, JPG yoki JPEG</p>
+                        <p class="text-xs font-black text-slate-700">Rasm tanlash yoki tashlash</p>
+                        <p class="text-[9px] text-slate-400 mt-1 uppercase font-black tracking-wider">PNG, JPG yoki JPEG</p>
                     </div>
 
                     <div id="preview-container" class="hidden">
-                        <img id="image-preview" src="#" alt="Preview" class="mx-auto rounded-xl max-h-48 shadow-md">
-                        <p class="mt-3 text-xs text-indigo-600 font-bold" id="file-name"></p>
+                        <img id="image-preview" src="#" alt="Preview" class="mx-auto rounded-xl max-h-40 shadow-sm">
+                        <p class="mt-2.5 text-[11px] text-indigo-600 font-black truncate px-4" id="file-name"></p>
                     </div>
                 </div>
 
-                <button type="submit" class="w-full bg-gray-900 text-white font-bold py-4 rounded-2xl shadow-lg shadow-gray-200 active:scale-[0.97] transition-all duration-200 text-lg flex items-center justify-center gap-2">
-                    <i class="fas fa-paper-plane text-sm opacity-60"></i> Chekni yuborish
+                <button type="submit" class="w-full bg-slate-900 text-white font-black py-3.5 rounded-2xl shadow-lg shadow-slate-100 hover:bg-slate-800 active:scale-[0.98] transition-all text-sm uppercase tracking-wider flex items-center justify-center gap-2">
+                    <i class="fas fa-paper-plane text-xs opacity-70"></i> 
+                    <span>Chekni tasdiqlashga yuborish</span>
                 </button>
             </form>
         </div>
 
-        <div class="mt-8 flex items-center justify-center gap-3 opacity-40">
+        <div class="mt-6">
+            <a href="{% url 'dashboard' %}" class="flex items-center justify-center gap-2 text-xs font-bold text-slate-400 hover:text-slate-800 transition-colors py-2">
+                <i class="fas fa-house text-[10px]"></i>
+                <span>Bosh sahifaga qaytish</span>
+            </a>
+        </div>
+
+        <div class="mt-6 flex items-center justify-center gap-2 opacity-30">
             <i class="fas fa-shield-alt text-xs"></i>
-            <span class="text-[10px] font-bold uppercase tracking-widest">Xavfsiz to'lov tizimi</span>
+            <span class="text-[9px] font-black uppercase tracking-widest">Xavfsiz ulanish</span>
         </div>
 
     </main>
@@ -103,6 +142,7 @@
         const previewImage = document.getElementById('image-preview');
         const fileNameLabel = document.getElementById('file-name');
 
+        // Rasm yuklanganda ekranda ko'rsatish
         fileInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
@@ -117,7 +157,7 @@
             }
         });
 
-        // Drag and Drop efektlari
+        // Drag and Drop effektlari
         ['dragenter', 'dragover'].forEach(eventName => {
             dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
         });
@@ -125,6 +165,24 @@
         ['dragleave', 'drop'].forEach(eventName => {
             dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
         });
+
+        // 📋 KARTA RAQAMINI NUSXALASH SCRIPT-I
+        function copyCardNumber() {
+            const cardNumber = "9860160102404060";
+            navigator.clipboard.writeText(cardNumber).then(() => {
+                const icon = document.getElementById('copy-icon');
+                
+                // Ikonkani yashil muvaffaqiyat belgisiga almashtirish
+                icon.className = "fas fa-check text-emerald-400";
+                
+                // 2 sekunddan keyin eski holiga qaytarish
+                setTimeout(() => {
+                    icon.className = "far fa-copy text-xs";
+                }, 2000);
+            }).catch(err => {
+                console.error('Nusxalashda xatolik: ', err);
+            });
+        }
     </script>
 
 </body>
