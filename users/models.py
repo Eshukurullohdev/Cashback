@@ -87,14 +87,13 @@ class Product(models.Model):
     # 🧩 CATEGORY
 
     CATEGORY_CHOICES = [
-        ('umumiy', 'Umumiy'),
-        ('elektrik', 'Elektrik'),
-        ('avto_bezak', 'Avto bezak'),
-        ('mator', 'Mator'),
-        ('xadavoy', 'Xadavoy'),
-        ('kuzuf', 'Kuzuf'),
-        ('moy', 'Moy'),
-    ]
+    ('hammasi', 'Hammasi'),
+    ('elektrikjan', 'Elektrikjan'),
+    ('avto_bezak', 'Avto Bezak'),
+    ('mator_xadavoy', 'Mator Xadavoy'),
+    ('chexol_polik', 'Chexol Polik'),
+    ('moy_antifriz', 'Moy Antifriz'),
+]
 
     image = models.ImageField(upload_to='products/', null=True, blank=True)
     name = models.CharField(max_length=255)

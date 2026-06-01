@@ -41,49 +41,37 @@
 </div>
 
 <!-- KATEGORIYALAR (Aktiv holati bilan) -->
-<div class="flex gap-2 overflow-x-auto no-scrollbar mb-6 -mx-4 px-4">
-    
-    {% with current_cat=request.GET.category %}
+<div class="flex gap-2 overflow-x-auto mb-5">
+
     <a href="{% url 'products' %}"
-       class="px-4 py-2 text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-sm shrink-0 border {% if not current_cat %} bg-slate-900 text-white border-slate-900 {% else %} bg-white text-slate-500 border-slate-100 {% endif %}">
+       class="px-4 py-2 rounded-xl bg-black text-white whitespace-nowrap">
         Hammasi
     </a>
 
-    <a href="?category=umumiy"
-       class="px-4 py-2 text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-sm shrink-0 border {% if current_cat == 'umumiy' %} bg-slate-900 text-white border-slate-900 {% else %} bg-white text-slate-500 border-slate-100 {% endif %}">
-        Umumiy
-    </a>
-
-    <a href="?category=elektrik"
-       class="px-4 py-2 text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-sm shrink-0 border {% if current_cat == 'elektrik' %} bg-slate-900 text-white border-slate-900 {% else %} bg-white text-slate-500 border-slate-100 {% endif %}">
-        Elektrik
+    <a href="?category=elektrikjan"
+       class="px-4 py-2 rounded-xl bg-white shadow whitespace-nowrap">
+        Elektrikjan
     </a>
 
     <a href="?category=avto_bezak"
-       class="px-4 py-2 text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-sm shrink-0 border {% if current_cat == 'avto_bezak' %} bg-slate-900 text-white border-slate-900 {% else %} bg-white text-slate-500 border-slate-100 {% endif %}">
-        Bezak
+       class="px-4 py-2 rounded-xl bg-white shadow whitespace-nowrap">
+        Avto Bezak
     </a>
 
-    <a href="?category=mator"
-       class="px-4 py-2 text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-sm shrink-0 border {% if current_cat == 'mator' %} bg-slate-900 text-white border-slate-900 {% else %} bg-white text-slate-500 border-slate-100 {% endif %}">
-        Mator
+    <a href="?category=mator_xadavoy"
+       class="px-4 py-2 rounded-xl bg-white shadow whitespace-nowrap">
+        Mator Xadavoy
     </a>
 
-    <a href="?category=xadavoy"
-       class="px-4 py-2 text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-sm shrink-0 border {% if current_cat == 'xadavoy' %} bg-slate-900 text-white border-slate-900 {% else %} bg-white text-slate-500 border-slate-100 {% endif %}">
-        Xadavoy
+    <a href="?category=chexol_polik"
+       class="px-4 py-2 rounded-xl bg-white shadow whitespace-nowrap">
+        Chexol Polik
     </a>
 
-    <a href="?category=kuzuf"
-       class="px-4 py-2 text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-sm shrink-0 border {% if current_cat == 'kuzuf' %} bg-slate-900 text-white border-slate-900 {% else %} bg-white text-slate-500 border-slate-100 {% endif %}">
-        Kuzov
+    <a href="?category=moy_antifriz"
+       class="px-4 py-2 rounded-xl bg-white shadow whitespace-nowrap">
+        Moy Antifriz
     </a>
-
-    <a href="?category=moy"
-       class="px-4 py-2 text-xs font-black uppercase tracking-wider rounded-xl transition-all shadow-sm shrink-0 border {% if current_cat == 'moy' %} bg-slate-900 text-white border-slate-900 {% else %} bg-white text-slate-500 border-slate-100 {% endif %}">
-        Moylar
-    </a>
-    {% endwith %}
 
 </div>
 

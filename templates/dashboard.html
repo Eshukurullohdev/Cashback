@@ -216,10 +216,7 @@
             </div>
             <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl"></div>
         </div>
-        <a href="{% url 'products' %}" 
-   class="block bg-blue-500 text-white text-center py-2 rounded-xl">
-   🛠 Zapchastlar
-</a>
+
 {% if request.user.is_staff %}
 <a href="{% url 'add_product' %}"
    class="block bg-green-500 text-white text-center py-2 rounded-xl">

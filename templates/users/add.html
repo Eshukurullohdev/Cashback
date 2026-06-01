@@ -44,16 +44,14 @@
         <input type="text" name="name" placeholder="Mahsulot nomi" class="input" required>
 
         <!-- CATEGORY FIXED -->
-<select name="category" class="input">
+<select name="category" class="input" required>
+    <option value="">Kategoriya tanlang</option>
 
-    <option value="umumiy">Umumiy</option>
-    <option value="elektrik">Elektrik</option>
-    <option value="avto_bezak">Avto bezak</option>
-    <option value="mator">Mator</option>
-    <option value="xadavoy">Xadavoy</option>
-    <option value="kuzuf">Kuzuf</option>
-    <option value="moy">Moy</option>
-
+    <option value="elektrikjan">Elektrikjan</option>
+    <option value="avto_bezak">Avto Bezak</option>
+    <option value="mator_xadavoy">Mator Xadavoy</option>
+    <option value="chexol_polik">Chexol Polik</option>
+    <option value="moy_antifriz">Moy Antifriz</option>
 </select>
 
         <input type="text" name="price" placeholder="Narx" class="input" oninput="this.value=this.value.replace(/[^0-9]/g,'')" required>
