@@ -1,30 +1,28 @@
-from pathlib import Path
-import os
-import dj_database_url
 
+from pathlib import Path
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# =========================
-# 🔐 SECURITY
-# =========================
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
+# Quick-start development settings - unsuitable for production
+# See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
-DEBUG = os.environ.get("DEBUG", "False") == "True"
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-8atdkg9uk949zrswv8))6uv@nxi(_7waieg3p#cbk@c96%g$vi'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
 ALLOWED_HOSTS = [
-    "127.0.0.1",
-    "localhost",
-    ".railway.app",
+    '*',
 ]
+
 
 CSRF_TRUSTED_ORIGINS = [
     "https://avtoservise-production.up.railway.app",
 ]
-
-# =========================
-# 📦 APPS
-# =========================
+# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -33,42 +31,39 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    
     'users',
     'cars',
     'payments',
     'posts',
     'dashboard',
     'stories',
-    'debts',
+    'debts'
 ]
-
-# =========================
-# ⚙️ MIDDLEWARE
-# =========================
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    'users.middleware.LastSeenMiddleware',
 ]
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 7  # 7 days
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = "Lax"
 
+CSRF_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SAMESITE = "Lax"
+
+# Railway HTTPS bo‘lsa True qilinadi
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+MIDDLEWARE += ['users.middleware.LastSeenMiddleware']
 ROOT_URLCONF = 'config.urls'
-
-LOGIN_URL = '/users/login/'
-
-# =========================
-# 🧠 TEMPLATES
-# =========================
-
+LOGIN_URL = '/users/register/'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -86,73 +81,75 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# =========================
-# 🗄 DATABASE (Railway + fallback)
-# =========================
 
-DATABASES = {
-    "default": dj_database_url.config(
-        default=os.environ.get("DATABASE_URL"),
-        conn_max_age=600,
-        ssl_require=True
-    )
-}
+# Database
+# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-# =========================
-# 🔒 AUTH
-# =========================
+import os
+import dj_database_url
 
-AUTH_USER_MODEL = 'users.User'
+if os.environ.get("DATABASE_URL"):
+    DATABASES = {
+        "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
+
+
+# Password validation
+# https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
 ]
 
-# =========================
-# 🌍 LANGUAGE / TIMEZONE
-# =========================
+AUTH_USER_MODEL = 'users.User'
+# Internationalization
+# https://docs.djangoproject.com/en/6.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Tashkent'
 
-USE_I18N = True
+# Timezone aktiv
 USE_TZ = True
 
-# =========================
-# 🍪 SESSION FIX (LOGIN STABILITY)
-# =========================
+USE_I18N = True
 
-SESSION_COOKIE_AGE = 60 * 60 * 24 * 7  # 7 days
-SESSION_COOKIE_HTTPONLY = True
-SESSION_COOKIE_SAMESITE = "Lax"
-SESSION_SAVE_EVERY_REQUEST = True
 
-CSRF_COOKIE_HTTPONLY = True
-CSRF_COOKIE_SAMESITE = "Lax"
 
-# 🔥 IMPORTANT (Railway HTTPS)
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
 
-# =========================
-# 📁 STATIC & MEDIA
-# =========================
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/6.0/howto/static-files/
+
+STATIC_URL = 'static/'
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+STATICFILES_DIRS = [BASE_DIR / 'static']   # sening static papkang shu bo‘lsa
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# =========================
-# 🔑 DEFAULT AUTO FIELD
-# =========================
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/6.0/ref/settings/#default-auto-field
