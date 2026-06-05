@@ -113,4 +113,3 @@ wikipedia==1.4.0
 yarl==1.18.3
 yt-dlp==2024.12.23
 zipp==3.17.0
-psycopg2-binary==2.9.9
