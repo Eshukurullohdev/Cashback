@@ -89,11 +89,16 @@
 </div>
 <button
     id="installBtn"
-    class="hidden fixed bottom-20 right-4 bg-blue-600 text-white px-4 py-3 rounded-full shadow-lg z-50">
-    📱 O'rnatish
+    class=" fixed bottom-[-18rem] right-4 z-50
+           w-16 h-16 rounded-full
+           bg-blue-600 text-white
+           shadow-2xl
+           hover:scale-110 active:scale-95
+           transition-all duration-300">
+           
+    <i class="fas fa-download text-xl"></i>
+
 </button>
-
-
     <!-- O'NG TOMON: ADMIN PANEL BELGISI -->
     {% if request.user.is_staff %}
     <div class="flex items-center gap-2">
@@ -562,33 +567,36 @@ if ('serviceWorker' in navigator) {
     .catch(function(err) {
       console.log("SW error", err);
     });
+
 }
 let deferredPrompt;
+const installBtn = document.getElementById('installBtn');
+const iosHelp = document.getElementById('iosHelp');
 
-const isAndroid = /Android/i.test(navigator.userAgent);
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 
 window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-
-    if (isAndroid) {
-        document.getElementById('installBtn').style.display = 'block';
-    }
 });
 
-document.getElementById('installBtn').addEventListener('click', async () => {
-    if (!deferredPrompt) return;
+installBtn.addEventListener('click', async () => {
 
-    deferredPrompt.prompt();
-
-    const { outcome } = await deferredPrompt.userChoice;
-
-    if (outcome === 'accepted') {
-        console.log('App installed');
+    // Android Chrome
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        await deferredPrompt.userChoice;
+        deferredPrompt = null;
+        return;
     }
 
-    deferredPrompt = null;
-    document.getElementById('installBtn').style.display = 'none';
+    // iPhone
+    if (isIOS) {
+        iosHelp.style.display = 'block';
+        return;
+    }
+
+    alert("Brauzer ilova o'rnatishni qo'llab-quvvatlamayapti.");
 });
 </script>
 </body>
