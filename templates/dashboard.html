@@ -87,9 +87,7 @@
              
     </a>
 </div>
-<button id="installBtn" class="bg-blue-600 text-white px-4 py-2 rounded">
-    📱 Ilovani o'rnatish
-</button>
+
     <!-- O'NG TOMON: ADMIN PANEL BELGISI -->
     {% if request.user.is_staff %}
     <div class="flex items-center gap-2">
@@ -102,6 +100,24 @@
 </div>
 
     <div class="pt-20 px-4 space-y-5">
+
+
+        <button id="installBtn"
+  class="group relative inline-flex items-center gap-2
+         bg-gradient-to-r from-blue-600 to-indigo-600
+         text-white px-6 py-3 rounded-xl
+         shadow-lg shadow-blue-500/30
+         hover:shadow-xl hover:scale-105
+         active:scale-95
+         transition-all duration-200 ease-out
+         font-medium">
+
+  <span class="text-lg group-hover:animate-bounce">📱</span>
+  <span>Ilovani o‘rnatish</span>
+
+  <!-- glow effect -->
+  <span class="absolute inset-0 rounded-xl bg-white/10 opacity-0 group-hover:opacity-100 transition"></span>
+</button>
 <a href="{% url 'story_view' %}" 
    class="flex items-center gap-3 bg-white rounded-3xl px-4 py-3 shadow-sm border border-gray-100 active:scale-95 transition-all duration-300">
 
