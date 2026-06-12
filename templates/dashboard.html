@@ -382,7 +382,7 @@
                     <option value="">Barcha modellar</option>
 
                     {% for model_name in models_list %}
-                    <option value="{{ model_name }}" {% if model_name==model_filter %}selected{% endif %}>
+                    <option value="{{ model_name }}" {% if model_name == model_filter %}selected{% endif %}>
                         {{ model_name }}
                     </option>
                     {% endfor %}
