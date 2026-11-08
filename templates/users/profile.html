@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="uz">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -7,131 +8,211 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
         
-        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background-color: #f1f5f9; 
+        }
         
-        .profile-card {
-            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
-            border-radius: 32px;
+        .glass-header { 
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px);
         }
 
-        /* Form styling for {{ form.as_p }} */
-        .edit-form p { margin-bottom: 1rem; }
-        .edit-form label { display: block; font-size: 0.8rem; font-weight: 700; color: #64748b; margin-bottom: 0.5rem; margin-left: 0.5rem; }
-        .edit-form input { 
-            width: 100%; padding: 12px 16px; border-radius: 16px; border: 2px solid #e2e8f0; 
-            outline: none; transition: all 0.3s; background: white;
+        /* Django form inputlarini zamonaviy minimal uslubga moslash */
+        .edit-form p { margin-bottom: 1.1rem; }
+        .edit-form label { 
+            display: block; 
+            font-size: 0.7rem; 
+            font-weight: 800; 
+            color: #64748b; 
+            margin-bottom: 0.4rem; 
+            margin-left: 0.2rem; 
+            text-transform: uppercase; 
+            letter-spacing: 0.08em; 
         }
-        .edit-form input:focus { border-color: #6366f1; box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); }
+        .edit-form input, .edit-form select, .edit-form textarea { 
+            width: 100%; 
+            padding: 13px 16px; 
+            border-radius: 18px; 
+            border: 1.5px solid #e2e8f0; 
+            outline: none; 
+            transition: all 0.25s ease; 
+            background: #f8fafc; 
+            font-size: 0.875rem; 
+            font-weight: 700; 
+            color: #0f172a;
+        }
+        .edit-form input:focus, .edit-form select:focus { 
+            border-color: #6366f1; 
+            background: #ffffff; 
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12); 
+        }
         
-        /* Maxsus fayl yuklash inputi uchun */
-        input[type="file"] { padding: 8px; font-size: 0.8rem; color: #64748b; }
+        input[type="file"] { 
+            padding: 10px; 
+            font-size: 0.75rem; 
+            color: #64748b; 
+            background: #ffffff; 
+        }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="pb-10">
+<body class="pb-24 text-slate-900">
 
-    <div class="fixed top-0 left-0 right-0 glass-nav p-4 flex items-center justify-between z-50">
-        <a href="{% url 'dashboard' %}" class="w-10 h-10 flex items-center justify-center rounded-xl bg-gray-50 text-gray-600 active:scale-90 transition">
-            <i class="fas fa-chevron-left"></i>
+    <!-- TOP HEADER -->
+    <div class="fixed top-0 left-0 right-0 glass-header px-4 py-3.5 flex items-center justify-between z-50 border-b border-slate-200/60 shadow-xs">
+        <a href="{% url 'dashboard' %}" class="w-10 h-10 flex items-center justify-center rounded-2xl bg-white text-slate-700 shadow-sm border border-slate-200/60 active:scale-90 transition-transform">
+            <i class="fas fa-arrow-left text-xs"></i>
         </a>
-        <h1 class="font-extrabold text-gray-800 tracking-tight">Mening Profilim</h1>
-        <div class="w-10 h-10 flex items-center justify-center text-indigo-600">
-            <i class="fas fa-cog"></i>
+        <h1 class="font-black text-slate-900 tracking-tight text-sm">Shaxsiy Kabinet</h1>
+        <div class="w-10 h-10 flex items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 border border-indigo-100">
+            <i class="fas fa-shield-halved text-xs"></i>
         </div>
     </div>
 
-    <div class="pt-20 px-5 space-y-6">
+    <div class="pt-20 px-4 space-y-4">
 
-        <div class="profile-card shadow-xl shadow-gray-200/50 p-6 text-center relative overflow-hidden">
-            <div class="absolute -top-10 -right-10 w-32 h-32 bg-indigo-500/5 rounded-full"></div>
+        <!-- PREMIUM PROFIL CARD -->
+        <div class="relative bg-slate-950 rounded-[32px] p-6 text-white shadow-xl overflow-hidden border border-slate-800">
+            <!-- Orqa fonga nur effektlari -->
+            <div class="absolute -top-12 -right-12 w-40 h-40 bg-indigo-600/30 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-12 -left-12 w-40 h-40 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none"></div>
             
-            <div class="relative z-10">
-                {% if request.user.profile_image %}
-                    <img src="{{ request.user.profile_image.url }}" 
-                         class="w-28 h-28 rounded-[32px] mx-auto object-cover mb-4 shadow-lg ring-4 ring-white">
-                {% else %}
-                    <div class="w-28 h-28 rounded-[32px] bg-gradient-to-tr from-indigo-500 to-purple-600 mx-auto flex items-center justify-center mb-4 shadow-lg shadow-indigo-100">
-                        <i class="fas fa-user text-white text-4xl"></i>
-                    </div>
-                {% endif %}
+            <div class="relative z-10 flex flex-col items-center text-center">
+                
+                <!-- AVATAR -->
+                <div class="relative mb-3">
+                    {% if request.user.profile_image %}
+                        <img src="{{ request.user.profile_image.url }}" class="w-24 h-24 rounded-[26px] object-cover ring-4 ring-white/10 shadow-2xl">
+                    {% else %}
+                        <div class="w-24 h-24 rounded-[26px] bg-gradient-to-tr from-indigo-500 via-indigo-600 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-950 text-white">
+                            <i class="fas fa-user-large text-3xl"></i>
+                        </div>
+                    {% endif %}
+                    
+                    <span class="absolute -bottom-1 -right-1 flex h-4 w-4">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-4 w-4 bg-emerald-500 border-2 border-slate-950"></span>
+                    </span>
+                </div>
 
-                <h2 class="text-xl font-black text-gray-800 tracking-tight">{{ request.user.phone }}</h2>
+                <!-- RAQAM VA HOLAT -->
+                <h2 class="text-lg font-black font-mono tracking-tight text-white mb-0.5">{{ request.user.phone }}</h2>
                 
                 {% if request.user.last_seen %}
-                    <p class="text-[11px] font-bold text-gray-400 uppercase mt-1 tracking-wider">
-                        <i class="far fa-clock mr-1 text-[10px]"></i> Oxirgi kirish: {{ request.user.last_seen|date:"H:i, d-M" }}
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5 mb-4">
+                        <i class="far fa-clock text-indigo-400"></i> Faollik: {{ request.user.last_seen|date:"H:i, d-M" }}
                     </p>
+                {% else %}
+                    <p class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest mb-4">Faol foydalanuvchi</p>
                 {% endif %}
 
-                <div class="mt-4 bg-emerald-500 text-white py-3 px-6 rounded-2xl inline-flex items-center gap-2 shadow-lg shadow-emerald-100 transform -rotate-1">
-                    <i class="fas fa-wallet"></i>
-                    <span class="font-black tracking-tight text-lg">{{ request.user.cashback_balance }} so'm</span>
+                <!-- BALANS BLOKI -->
+                <div class="w-full bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-3.5 flex items-center justify-between">
+                    <div class="text-left">
+                        <span class="block text-[9px] font-extrabold text-slate-400 uppercase tracking-widest">Keshbek Balans</span>
+                        <span class="text-xl font-black font-mono text-emerald-400">{{ request.user.cashback_balance }} <span class="text-xs font-sans text-slate-300">so'm</span></span>
+                    </div>
+                    <div class="w-10 h-10 bg-emerald-500/20 rounded-xl flex items-center justify-center text-emerald-400 border border-emerald-500/30">
+                        <i class="fas fa-wallet text-sm"></i>
+                    </div>
                 </div>
+
             </div>
         </div>
-        <h3>Cashback yechish tarixi</h3>
 
-{% for w in request.user.withdrawals.all %}
-<div class="bg-gray-100 p-2 rounded mb-2">
-    -{{ w.amount }} so‘m <br>
-    <small>{{ w.created_at }}</small>
-</div>
-{% empty %}
-<p>Hali yechim yo‘q</p>
-{% endfor %}
+        <!-- CASHBACK YECHISH TARIXI -->
+        <div class="bg-white rounded-[28px] p-5 shadow-xs border border-slate-200/80 space-y-3">
+            <div class="flex items-center justify-between">
+                <h3 class="text-xs font-black text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                    <div class="w-7 h-7 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                        <i class="fas fa-arrow-down-left text-xs"></i>
+                    </div>
+                    Cashback yechish tarixi
+                </h3>
+            </div>
+            
+            <div class="space-y-2 max-h-48 overflow-y-auto no-scrollbar pt-1">
+                {% for w in request.user.withdrawals.all %}
+                <div class="bg-slate-50 p-3 rounded-2xl border border-slate-100 flex justify-between items-center hover:bg-slate-100/80 transition-colors">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-2 h-2 rounded-full bg-red-500"></div>
+                        <span class="text-xs font-black text-slate-900 font-mono">-{{ w.amount }} so‘m</span>
+                    </div>
+                    <span class="text-[10px] font-bold text-slate-400 font-mono bg-white px-2 py-1 rounded-lg border border-slate-200/50">{{ w.created_at|date:"d.m.Y H:i" }}</span>
+                </div>
+                {% empty %}
+                <div class="text-center py-5 border border-dashed border-slate-200 rounded-2xl">
+                    <p class="text-xs font-bold text-slate-400">Hali chiqariqlar amalga oshirilmadi</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- OXIRGI XIZMAT -->
         {% with last_payment=payments.first %}
             {% if last_payment %}
-                <div class="bg-indigo-600 rounded-3xl p-5 text-white shadow-lg shadow-indigo-100">
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-tools text-sm"></i>
-                        </div>
-                        <span class="text-xs font-bold uppercase tracking-widest opacity-80">Oxirgi xizmat</span>
+                <div class="bg-gradient-to-br from-indigo-600 to-indigo-800 rounded-[28px] p-5 text-white shadow-lg shadow-indigo-200 relative overflow-hidden">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-[10px] font-black uppercase tracking-widest bg-white/15 px-2.5 py-1 rounded-lg backdrop-blur-md">Oxirgi xizmat</span>
+                        <i class="fas fa-wrench text-indigo-200 text-sm"></i>
                     </div>
-                    <p class="font-semibold text-sm leading-relaxed mb-2">{{ last_payment.description }}</p>
-                    <span class="text-[10px] font-bold py-1 px-2 bg-black/10 rounded-md">
-                         {{ last_payment.created_at|date:"d.m.Y | H:i" }}
-                    </span>
+                    <p class="font-extrabold text-sm leading-relaxed mb-3 text-indigo-50">{{ last_payment.description }}</p>
+                    <div class="flex items-center justify-between border-t border-white/10 pt-2.5">
+                        <span class="text-[10px] font-bold text-indigo-200 font-mono">{{ last_payment.created_at|date:"d.m.Y | H:i" }}</span>
+                        <span class="text-xs font-black text-emerald-300 font-mono">+{{ last_payment.cashback }} cashback</span>
+                    </div>
                 </div>
             {% endif %}
         {% endwith %}
 
-        <div class="bg-white rounded-[32px] shadow-sm p-6 border border-gray-100">
-            <h3 class="text-gray-800 font-extrabold mb-5 flex items-center gap-2">
-                <i class="fas fa-user-edit text-indigo-500 text-sm"></i> Ma'lumotlarni tahrirlash
-            </h3>
-            <form method="post" enctype="multipart/form-data" class="edit-form space-y-2">
+        <!-- MA'LUMOTLARNI TAHRIRLASH FORMASI -->
+        <div class="bg-white rounded-[28px] shadow-xs p-5 border border-slate-200/80">
+            <div class="flex items-center gap-2.5 mb-4">
+                <div class="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center">
+                    <i class="fas fa-user-pen text-xs"></i>
+                </div>
+                <h3 class="text-slate-900 font-black text-xs uppercase tracking-wider">
+                    Ma'lumotlarni tahrirlash
+                </h3>
+            </div>
+            
+            <form method="post" enctype="multipart/form-data" class="edit-form space-y-3">
                 {% csrf_token %}
                 <div class="django-inputs">
                     {{ form.as_p }}
                 </div>
 
-                <div class="pt-4">
+                <div class="pt-2">
                     <button type="submit"
-                        class="w-full bg-gray-900 text-white py-4 rounded-2xl text-lg font-bold shadow-xl shadow-gray-200 active:scale-95 transition-all">
+                        class="w-full bg-slate-950 hover:bg-slate-900 text-white py-4 rounded-2xl text-xs font-black uppercase tracking-wider shadow-md shadow-slate-300 active:scale-[0.98] transition-all">
                         O'zgarishlarni saqlash
                     </button>
                 </div>
             </form>
         </div>
 
+        <!-- NAVIGATION QUICK BUTTONS -->
         <div class="grid grid-cols-2 gap-3">
             <a href="{% url 'password_change' %}"
-               class="bg-white p-4 rounded-3xl text-center border border-gray-100 shadow-sm active:scale-95 transition-all">
-                <div class="w-10 h-10 bg-amber-50 text-amber-500 rounded-xl flex items-center justify-center mx-auto mb-2 text-sm">
-                    <i class="fas fa-lock"></i>
+               class="bg-white p-4 rounded-2xl text-center border border-slate-200/80 shadow-xs active:scale-95 transition-all flex items-center justify-center gap-2">
+                <div class="w-7 h-7 bg-amber-50 text-amber-500 rounded-lg flex items-center justify-center text-xs">
+                    <i class="fas fa-key"></i>
                 </div>
-                <span class="text-xs font-bold text-gray-700">Parol</span>
+                <span class="text-xs font-bold text-slate-800">Parolni yangilash</span>
             </a>
 
             <a href="{% url 'dashboard' %}"
-               class="bg-white p-4 rounded-3xl text-center border border-gray-100 shadow-sm active:scale-95 transition-all">
-                <div class="w-10 h-10 bg-gray-50 text-gray-500 rounded-xl flex items-center justify-center mx-auto mb-2 text-sm">
-                    <i class="fas fa-home"></i>
+               class="bg-white p-4 rounded-2xl text-center border border-slate-200/80 shadow-xs active:scale-95 transition-all flex items-center justify-center gap-2">
+                <div class="w-7 h-7 bg-slate-100 text-slate-600 rounded-lg flex items-center justify-center text-xs">
+                    <i class="fas fa-house"></i>
                 </div>
-                <span class="text-xs font-bold text-gray-700">Bosh sahifa</span>
+                <span class="text-xs font-bold text-slate-800">Bosh sahifa</span>
             </a>
         </div>
 
